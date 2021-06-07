@@ -3,6 +3,7 @@ const program = new Command();
 const package = require("./package.json");
 const { getQuestion, getTopics } = require("./utils/data");
 const { notionConfig, createPage } = require("./api/postNewPage");
+const sendSms = require('./twilio');
 
 program.version(package.version);
 
@@ -29,4 +30,5 @@ async function pipeline() {
   console.log(question);
 
   createPage(question);
+  sendSms(question);
 }
