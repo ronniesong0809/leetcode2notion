@@ -1,0 +1,22 @@
+{
+  "name": "leetcode2notion",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ronniesong0809/leetcode2notion.git"
+  },
+  "author": "Ronnie Song",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ronniesong0809/leetcode2notion/issues"
+  },
+  "homepage": "https://github.com/ronniesong0809/leetcode2notion#readme",
+  "dependencies": {
+    "dotenv": "^10.0.0"
+  }
+}
