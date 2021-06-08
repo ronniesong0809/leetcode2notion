@@ -1,5 +1,5 @@
 const data = require("./data.json");
-const { getQuestionDetail } = require("../demo/getQuestionDetail");
+const { getQuestionDetail } = require("../api/getQuestionDetail");
 const dayjs = require("dayjs");
 
 const difficulty = ["Easy 🍀", "Medium", "Hard 🔥"];

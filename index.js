@@ -1,7 +1,7 @@
 const { Command } = require("commander");
 const program = new Command();
 const { getQuestion, getTopics } = require("./utils/data");
-const { createPage, getDatabaseTagOptions } = require("./api/post");
+const { createPage, getDatabaseTagOptions } = require("./api/postNewPage");
 
 program.version("0.0.1");
 
@@ -20,11 +20,12 @@ var time = options.time ? options.time : 0;
 if (options.question) pipeline();
 
 async function pipeline() {
+  const question = getQuestion(options.question, time);
+  console.log(question);
+  
   const tags = await getDatabaseTagOptions();
   console.log(tags);
   getTopics(question.titleSlug);
-
-  const question = getQuestion(options.question, time);
-  console.log(question);
+  
   await createPage(question);
 }
