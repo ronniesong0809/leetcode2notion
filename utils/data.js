@@ -12,12 +12,14 @@ const find = val => {
 
 const getTopics = val => {
   var data = getQuestionDetail(val);
-  data.then(result => {
-    topics = [];
-    for (let i = 0; i < result.length; i++) {
-      topics.push(result[i].name);
-    }
-    console.log(topics);
+  return data.then(result => {
+    var topics = [];
+    result.map(topicName => {
+      var topic = {
+        name: topicName.name
+      };
+      topics.push(topic);
+    });
     return topics;
   });
 };

@@ -23,9 +23,8 @@ async function pipeline() {
   const question = getQuestion(options.question, time);
   console.log(question);
   
-  const tags = await getDatabaseTagOptions();
-  console.log(tags);
-  getTopics(question.titleSlug);
-  
-  await createPage(question);
+  // const tags = await getDatabaseTagOptions();
+  // console.log(tags);
+  const topics = getTopics(question.titleSlug);
+  await createPage(question, topics);
 }

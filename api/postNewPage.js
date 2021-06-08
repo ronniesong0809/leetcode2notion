@@ -5,39 +5,45 @@ dotenv.config();
 const notion = new Client({ auth: process.env.NOTION_KEY });
 const databaseId = process.env.NOTION_DATABASE_ID;
 
-const createPage = async data => {
-  return notion.pages.create({
-    parent: {
-      database_id: databaseId
-    },
-    properties: {
-      Name: {
-        title: [
-          {
-            type: "text",
-            text: {
-              content: data.title
+const createPage = async (data, val) => {
+  val.then(topics => {
+    console.log(topics)
+    return notion.pages.create({
+      parent: {
+        database_id: databaseId
+      },
+      properties: {
+        Name: {
+          title: [
+            {
+              type: "text",
+              text: {
+                content: data.title
+              }
             }
+          ]
+        },
+        Number: {
+          number: data.id
+        },
+        Difficulty: {
+          select: {
+            name: data.lvl
           }
-        ]
-      },
-      Number: {
-        number: data.id
-      },
-      Difficulty: {
-        select: {
-          name: data.lvl
-        }
-      },
-      URL: {
-        url: data.url
-      },
-      Due: {
-        date: {
-          start: data.date
+        },
+        URL: {
+          url: data.url
+        },
+        Due: {
+          date: {
+            start: data.date
+          }
+        },
+        Topics: {
+          multi_select: topics
         }
       }
-    }
+    });
   });
 };
 
