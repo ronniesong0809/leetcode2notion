@@ -5,11 +5,11 @@ const difficulty = ["Easy 🍀", "Medium", "Hard 🔥"];
 const baseUrl = "https://leetcode.com/problems/";
 const baseUrlCN = "https://leetcode-cn.com/problems/";
 
-function find(val) {
+const find = val => {
   return data.stat_status_pairs.find(key => key.stat.question_id === val);
-}
+};
 
-function getQuestion(val, due) {
+const getQuestion = (val, due) => {
   question = find(val);
   return {
     id: question.stat.question_id,
@@ -18,6 +18,6 @@ function getQuestion(val, due) {
     lvl: difficulty[question.difficulty.level - 1],
     date: dayjs().add(due, "day").format()
   };
-}
+};
 
 module.exports = { getQuestion };

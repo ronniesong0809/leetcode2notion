@@ -5,7 +5,7 @@ dotenv.config();
 const notion = new Client({ auth: process.env.NOTION_KEY });
 const databaseId = process.env.NOTION_DATABASE_ID;
 
-async function createPage(data) {
+const createPage = async data => {
   return notion.pages.create({
     parent: {
       database_id: databaseId
@@ -39,14 +39,14 @@ async function createPage(data) {
       }
     }
   });
-}
+};
 
-async function getDatabaseTagOptions() {
+const getDatabaseTagOptions = async () => {
   const databaseResponse = await notion.databases.retrieve({
     database_id: databaseId
   });
   const tagProperty = databaseResponse.properties["Topics"];
   return tagProperty.multi_select.options;
-}
+};
 
 module.exports = { createPage, getDatabaseTagOptions };
