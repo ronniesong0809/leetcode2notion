@@ -7,7 +7,7 @@ const databaseId = process.env.NOTION_DATABASE_ID;
 
 const createPage = async (data, val) => {
   val.then(topics => {
-    console.log(topics)
+    console.log(topics);
     return notion.pages.create({
       parent: {
         database_id: databaseId
@@ -25,6 +25,9 @@ const createPage = async (data, val) => {
         },
         Number: {
           number: data.id
+        },
+        Frequency: {
+          number: data.frequency
         },
         Difficulty: {
           select: {

@@ -1,9 +1,10 @@
 const { Command } = require("commander");
 const program = new Command();
+const package = require("./package.json");
 const { getQuestion, getTopics } = require("./utils/data");
 const { createPage, getDatabaseTagOptions } = require("./api/postNewPage");
 
-program.version("0.0.1");
+program.version(package.version);
 
 program
   .requiredOption("-q, --question <leetcode>", "LeetCode question", Number)
@@ -16,13 +17,13 @@ const options = program.opts();
 program.parse(process.argv);
 
 if (program.debug) console.log(program.opts());
-var time = options.time ? options.time : 0;
+var time = options.time ? options.time : 1;
 if (options.question) pipeline();
 
 async function pipeline() {
   const question = getQuestion(options.question, time);
   console.log(question);
-  
+
   // const tags = await getDatabaseTagOptions();
   // console.log(tags);
   const topics = getTopics(question.titleSlug);

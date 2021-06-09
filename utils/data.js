@@ -32,6 +32,7 @@ const getQuestion = (val, due) => {
     titleSlug: question.stat.question__title_slug,
     url: baseUrl + question.stat.question__title_slug + "/",
     lvl: difficulty[question.difficulty.level - 1],
+    frequency: question.frequency,
     date: dayjs().add(due, "day").format()
   };
 };
