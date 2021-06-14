@@ -7,7 +7,7 @@ const baseUrl = "https://leetcode.com/problems/";
 const baseUrlCN = "https://leetcode-cn.com/problems/";
 
 const find = val => {
-  return data.stat_status_pairs.find(key => key.stat.question_id === val);
+  return data.stat_status_pairs.find(key => key.stat.frontend_question_id === val);
 };
 
 const getTopics = val => {
@@ -27,7 +27,7 @@ const getTopics = val => {
 const getQuestion = (val, due) => {
   question = find(val);
   return {
-    id: question.stat.question_id,
+    id: question.stat.frontend_question_id,
     title: question.stat.question__title,
     titleSlug: question.stat.question__title_slug,
     url: baseUrl + question.stat.question__title_slug + "/",
