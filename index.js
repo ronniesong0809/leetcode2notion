@@ -2,30 +2,21 @@ const { Command } = require("commander");
 const program = new Command();
 const package = require("./package.json");
 const { getQuestion, getTopics } = require("./utils/data");
-const { createPage, getDatabaseTagOptions } = require("./api/postNewPage");
+const { notionConfig, createPage } = require("./api/postNewPage");
 
-program.version(package.version);
+const config = (key, database) => {
+  notionConfig.key = key;
+  notionConfig.databaseId = database;
+};
 
-program
-  .requiredOption("-q, --question <leetcode>", "LeetCode question", Number)
-  .option("-t, --time <type>", "Add Optional due date", Number)
-  .option("-d, --debug", "output extra debugging");
+const addQuestionToNtion = async (id, time) => {
+  var time = time || 1;
 
-program.addHelpText("after", `\n\nExample call:\n$ custom-help --help`);
-
-const options = program.opts();
-program.parse(process.argv);
-
-if (program.debug) console.log(program.opts());
-var time = options.time ? options.time : 1;
-if (options.question) pipeline();
-
-async function pipeline() {
-  const question = getQuestion(options.question, time);
+  const question = getQuestion(id, time);
   console.log(question);
 
-  // const tags = await getDatabaseTagOptions();
-  // console.log(tags);
   const topics = getTopics(question.titleSlug);
   await createPage(question, topics);
-}
+};
+
+module.exports = { config, addQuestionToNtion };

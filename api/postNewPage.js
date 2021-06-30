@@ -2,10 +2,12 @@ const { Client } = require("@notionhq/client");
 const dotenv = require("dotenv");
 dotenv.config();
 
-const notion = new Client({ auth: process.env.NOTION_KEY });
-const databaseId = process.env.NOTION_DATABASE_ID;
+let notionConfig = {};
 
 const createPage = async (data, val) => {
+  const notion = new Client({ auth: notionConfig.key });
+  const databaseId = notionConfig.databaseId;
+
   val.then(topics => {
     console.log(topics);
     return notion.pages.create({
@@ -58,4 +60,4 @@ const getDatabaseTagOptions = async () => {
   return tagProperty.multi_select.options;
 };
 
-module.exports = { createPage, getDatabaseTagOptions };
+module.exports = { createPage, getDatabaseTagOptions, notionConfig };
