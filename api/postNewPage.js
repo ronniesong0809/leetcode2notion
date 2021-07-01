@@ -4,52 +4,53 @@ dotenv.config();
 
 let notionConfig = {};
 
-const createPage = async (data, val) => {
+const createPage = async (data) => {
   const notion = new Client({ auth: notionConfig.key });
   const databaseId = notionConfig.databaseId;
 
-  val.then(topics => {
-    console.log(topics);
-    return notion.pages.create({
-      parent: {
-        database_id: databaseId
-      },
-      properties: {
-        Name: {
-          title: [
-            {
-              type: "text",
-              text: {
-                content: data.title
-              }
+  const createPage =  notion.pages.create({
+    parent: {
+      database_id: databaseId
+    },
+    properties: {
+      Name: {
+        title: [
+          {
+            type: "text",
+            text: {
+              content: data.title
             }
-          ]
-        },
-        Number: {
-          number: data.id
-        },
-        Frequency: {
-          number: data.frequency
-        },
-        Difficulty: {
-          select: {
-            name: data.lvl
           }
-        },
-        URL: {
-          url: data.url
-        },
-        Due: {
-          date: {
-            start: data.date
-          }
-        },
-        Topics: {
-          multi_select: topics
+        ]
+      },
+      Number: {
+        number: data.id
+      },
+      Frequency: {
+        number: data.frequency
+      },
+      Difficulty: {
+        select: {
+          name: data.lvl
         }
+      },
+      URL: {
+        url: data.url
+      },
+      Due: {
+        date: {
+          start: data.date
+        }
+      },
+      Topics: {
+        multi_select: data.topics
       }
-    });
+    }
   });
+  // console.log(data);
+  // console.log(topics);
+
+  return createPage;
 };
 
 const getDatabaseTagOptions = async () => {
@@ -60,4 +61,4 @@ const getDatabaseTagOptions = async () => {
   return tagProperty.multi_select.options;
 };
 
-module.exports = { createPage, getDatabaseTagOptions, notionConfig };
+module.exports = { notionConfig, createPage, getDatabaseTagOptions };

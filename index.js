@@ -1,6 +1,3 @@
-const { Command } = require("commander");
-const program = new Command();
-const package = require("./package.json");
 const { getQuestion, getTopics } = require("./utils/data");
 const { notionConfig, createPage } = require("./api/postNewPage");
 
@@ -9,14 +6,13 @@ const config = (key, database) => {
   notionConfig.databaseId = database;
 };
 
-const addQuestionToNtion = async (id, time) => {
+const addQuestionToNotion = async(id, time) => {
   var time = time || 1;
 
   const question = getQuestion(id, time);
-  console.log(question);
+  question.topics = await getTopics(question.titleSlug);
 
-  const topics = getTopics(question.titleSlug);
-  await createPage(question, topics);
+  createPage(question);
 };
 
-module.exports = { config, addQuestionToNtion };
+module.exports = { config, addQuestionToNotion };

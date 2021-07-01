@@ -25,8 +25,8 @@ async function pipeline() {
   notionConfig.databaseId = process.env.NOTION_DATABASE_ID;
 
   const question = getQuestion(options.question, time);
+  question.topics = await getTopics(question.titleSlug);
   console.log(question);
 
-  const topics = getTopics(question.titleSlug);
-  await createPage(question, topics);
+  createPage(question);
 }
