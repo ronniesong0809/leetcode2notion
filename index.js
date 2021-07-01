@@ -1,5 +1,6 @@
 const { getQuestion, getTopics } = require("./utils/data");
 const { notionConfig, createPage } = require("./api/postNewPage");
+const sendSms = require('./twilio');
 
 const config = (key, database) => {
   notionConfig.key = key;
@@ -13,6 +14,7 @@ const addQuestionToNotion = async(id, time) => {
   question.topics = await getTopics(question.titleSlug);
 
   createPage(question);
+  sendSms(question);
 };
 
 module.exports = { config, addQuestionToNotion };
